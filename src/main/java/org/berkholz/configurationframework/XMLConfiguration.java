@@ -135,4 +135,14 @@ public class XMLConfiguration {
         }
         return false;
     }
+
+    /**
+     *
+     * @param xmlPropertyFile
+     * @return True if the configuration is valid, otherwise false.
+     */
+    public static boolean isXMLConfigurationFileValid(File xmlPropertyFile) {
+        // TODO: validate xmlPropertyFile
+        return true;
+    }
 }
