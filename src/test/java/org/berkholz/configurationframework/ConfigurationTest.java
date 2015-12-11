@@ -15,9 +15,9 @@ import org.junit.Test;
  *
  * @author aberkholz
  */
-public class XMLConfigurationTest {
+public class ConfigurationTest {
 
-    public XMLConfigurationTest() {
+    public ConfigurationTest() {
     }
 
     @BeforeClass
@@ -40,20 +40,20 @@ public class XMLConfigurationTest {
      * Test of loadConfigurationFile method, of class XMLConfiguration.
      */
     @Test
-    public void testLoadConfigurationFile() {
+    public void testLoad() {
     }
 
     /**
      * Test of saveConfigurationFile method, of class XMLConfiguration.
      */
     @Test
-    public void testSaveConfigurationFile() {
+    public void testSave() {
     }
 
     /**
      * Test of createDefaultConfigurationFile method, of class XMLConfiguration.
      */
     @Test
-    public void testCreateDefaultConfigurationFile() {
+    public void testInit() {
     }
 }
