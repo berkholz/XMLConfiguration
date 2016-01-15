@@ -11,8 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -25,8 +25,8 @@ import javax.xml.bind.Unmarshaller;
  * @author Marcel Berkholz
  */
 public class Configuration {
-
-    private static final Logger LOG = Logger.getLogger(Configuration.class.getName());
+    
+    private static final Logger LOG = LogManager.getLogger(Configuration.class.getName());
 
     /**
      * Load a XML configuration file in a generic way and return it as object,
@@ -40,16 +40,16 @@ public class Configuration {
     public static Object load(Class classType, File configurationFile) {
         JAXBContext context;
         if (configurationFile.exists()) {
-            LOG.log(Level.INFO, "Loading configuration file {0}", configurationFile.getAbsolutePath());
+            LOG.info("Loading configuration file {0}", configurationFile.getAbsolutePath());
             try {
                 context = JAXBContext.newInstance(classType);
                 Unmarshaller ums = context.createUnmarshaller();
                 return ums.unmarshal(configurationFile);
             } catch (JAXBException ex) {
-                LOG.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
+                LOG.error(ex.getLocalizedMessage(), ex);
             }
         } else {
-            LOG.log(Level.SEVERE, "Cannot load configuration file {0}. It does not exist.", configurationFile.getAbsolutePath());
+            LOG.error("Cannot load configuration file {0}. It does not exist.", configurationFile.getAbsolutePath());
         }
         return null;
     }
@@ -64,19 +64,26 @@ public class Configuration {
      */
     public static void save(Object instance, File configurationFile) {
         if (configurationFile.exists()) {
-            LOG.log(Level.INFO, MessageFormat.format("File {0} allready exists, overwriting it...", configurationFile.getAbsolutePath()));
+            LOG.info(MessageFormat.format("File {0} allready exists, overwriting it...", configurationFile.getAbsolutePath()));
         }
-
+        
         try {
+            LOG.trace("Instanciating new JAXB context.");
             JAXBContext context = JAXBContext.newInstance(instance.getClass());
+            
+            LOG.trace("Create Marshaller with JAXB context.");
             Marshaller ms = context.createMarshaller();
+            
+            LOG.trace("Setting property of JAXB_FORMATTED_OUTPUT to true");
             ms.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            
+            LOG.trace("Marshallering.");
             ms.marshal(instance, configurationFile);
-            LOG.log(Level.INFO, "Saving configuration to file {0}", configurationFile.getAbsolutePath());
+            LOG.info("Saving configuration to file {0}", configurationFile.getAbsolutePath());
         } catch (PropertyException ex) {
-            LOG.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
+            LOG.error(ex.getLocalizedMessage(), ex);
         } catch (JAXBException ex) {
-            LOG.log(Level.SEVERE, ex.getLocalizedMessage(), ex);
+            LOG.error(ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -98,7 +105,7 @@ public class Configuration {
                 output.close();
                 return true;
             } catch (IOException e) {
-                LOG.log(Level.SEVERE, e.getLocalizedMessage(), e);
+                LOG.error(e.getLocalizedMessage(), e);
             }
         }
         return false;
@@ -110,7 +117,6 @@ public class Configuration {
      * @return True if the configuration is valid, otherwise false.
      */
     public static boolean isValid(File xmlPropertyFile) {
-        // TODO: validate xmlPropertyFile
-        return true;
+        throw new UnsupportedOperationException("Not implemented, yet.");
     }
 }
