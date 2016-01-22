@@ -25,7 +25,7 @@ import javax.xml.bind.Unmarshaller;
  * @author Marcel Berkholz
  */
 public class Configuration {
-    
+
     private static final Logger LOG = LogManager.getLogger(Configuration.class.getName());
 
     /**
@@ -40,7 +40,7 @@ public class Configuration {
     public static Object load(Class classType, File configurationFile) {
         JAXBContext context;
         if (configurationFile.exists()) {
-            LOG.info("Loading configuration file {0}", configurationFile.getAbsolutePath());
+            LOG.info(MessageFormat.format("Loading configuration file \"{0}\"", configurationFile.getAbsolutePath()));
             try {
                 context = JAXBContext.newInstance(classType);
                 Unmarshaller ums = context.createUnmarshaller();
@@ -49,9 +49,22 @@ public class Configuration {
                 LOG.error(ex.getLocalizedMessage(), ex);
             }
         } else {
-            LOG.error("Cannot load configuration file {0}. It does not exist.", configurationFile.getAbsolutePath());
+            LOG.error(MessageFormat.format("Cannot load configuration file \"{0\". It does not exist.", configurationFile.getAbsolutePath()));
         }
         return null;
+    }
+
+    /**
+     * Saves an object to an XML configuration file. If file exists it will be
+     * overwritten by default.
+     *
+     * @param instance This instance of an object will be saved to a XML
+     * configuration file.
+     * @param configurationFile The File object where the instance of an object
+     * shall be stored.
+     */
+    public static void save(Object instance, File configurationFile) {
+        save(instance, configurationFile, Boolean.TRUE);
     }
 
     /**
@@ -61,25 +74,32 @@ public class Configuration {
      * configuration file.
      * @param configurationFile The File object where the instance of an object
      * shall be stored.
+     * @param overwriteFile Flag to overwrite the configuration file when it
+     * exists.
      */
-    public static void save(Object instance, File configurationFile) {
+    public static void save(Object instance, File configurationFile, Boolean overwriteFile) {
         if (configurationFile.exists()) {
-            LOG.info(MessageFormat.format("File {0} allready exists, overwriting it...", configurationFile.getAbsolutePath()));
+            if (overwriteFile) {
+                LOG.info(MessageFormat.format("File \"{0}\" allready exists, overwriting it.", configurationFile.getAbsolutePath()));
+            } else {
+                LOG.info(MessageFormat.format("File \"{0}\" allready exists, skipping save operation.", configurationFile.getAbsolutePath()));
+                return;
+            }
         }
-        
+
         try {
             LOG.trace("Instanciating new JAXB context.");
             JAXBContext context = JAXBContext.newInstance(instance.getClass());
-            
+
             LOG.trace("Create Marshaller with JAXB context.");
             Marshaller ms = context.createMarshaller();
-            
+
             LOG.trace("Setting property of JAXB_FORMATTED_OUTPUT to true");
             ms.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            
+
             LOG.trace("Marshallering.");
             ms.marshal(instance, configurationFile);
-            LOG.info("Saving configuration to file {0}", configurationFile.getAbsolutePath());
+            LOG.info(MessageFormat.format("Saving configuration to file \"{0}\".", configurationFile.getAbsolutePath()));
         } catch (PropertyException ex) {
             LOG.error(ex.getLocalizedMessage(), ex);
         } catch (JAXBException ex) {
@@ -91,7 +111,7 @@ public class Configuration {
      * Create a configuration property file for a time sheet.
      *
      * @param xmlPropertyFile File object to the configuration property file.
-     * @return True if file exists or were created, otherwise false.
+     * @return True if file exists or if file is created, otherwise false.
      */
     public Boolean init(File xmlPropertyFile) {
         Properties serverProperties;
