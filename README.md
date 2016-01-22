@@ -8,7 +8,7 @@ Class for simple XML configuration file management.
 
 # Licenses
 ## Apache log4j & Apache Common IO 2.4
-Both are under the [Apache License 2.0.|http://www.apache.org/licenses/LICENSE-2.0.txt]
+Both are under the Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## JUnit 4.11
-Junit is under the [Eclipse Public License 1.0|http://junit.org/license.html]
+JUnit is under the Eclipse Public License 1.0 (http://junit.org/license.html or http://www.eclipse.org/org/documents/epl-v10.html)
