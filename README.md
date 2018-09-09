@@ -2,18 +2,18 @@
 Class for simple XML configuration file management.
 
 # Dependencies
-- Apache log4j 2.5
-- JUnit 4.11
+- Apache log4j 2.11.1
+- JUnit 4.12
 - Apache Common IO 2.4
 
 # Licenses
 This software is distributed under the GNU Public License 2.
 
 ## Used projects
-### Apache log4j & Apache Common IO 2.4
+### Apache log4j & Apache Common IO 
 Both are under the Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0.txt)
 
-### JUnit 4.11
+### JUnit 
 JUnit is under the Eclipse Public License 1.0 (http://junit.org/license.html or http://www.eclipse.org/org/documents/epl-v10.html
 
 # Usage
@@ -24,10 +24,10 @@ JUnit is under the Eclipse Public License 1.0 (http://junit.org/license.html or 
 - Add to your Maven project the following dependency: 
 		
 		<dependency>
-            		<groupId>${project.groupId}</groupId>
-            		<artifactId>Configuration</artifactId>
-            		<version>0.1</version>
-        	</dependency>
+           		<groupId>${project.groupId}</groupId>
+           		<artifactId>Configuration</artifactId>
+           		<version>0.1</version>
+       	</dependency>
 		
 - Add import in your java class:
 
