@@ -13,11 +13,11 @@ import java.text.MessageFormat;
 import java.util.Properties;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.PropertyException;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * Class for managing generic XML configuration files.
