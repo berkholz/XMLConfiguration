@@ -2,9 +2,12 @@
 Class for simple XML configuration file management.
 
 # Dependencies
-- Apache log4j 2.11.1
-- JUnit 4.12
-- Apache Common IO 2.4
+- Apache log4j 
+- JUnit
+- Apache Common IO
+- Jakarta EE - JAXB
+
+For further details see pom.xml.
 
 # Licenses
 This software is distributed under the GNU Public License 2.
