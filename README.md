@@ -26,11 +26,11 @@ JUnit is under the Eclipse Public License 1.0 (http://junit.org/license.html or 
 
 - Add to your Maven project the following dependency: 
 		
-	<dependency>
-           	<groupId>${project.groupId}</groupId>
-           	<artifactId>Configuration</artifactId>
-        	<version>0.1</version>
-       	</dependency>
+        <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>Configuration</artifactId>
+                <version>0.1</version>
+        </dependency>
 		
 - Add import in your java class:
 
